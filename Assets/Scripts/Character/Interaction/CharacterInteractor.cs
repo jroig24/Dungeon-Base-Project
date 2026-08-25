@@ -1,59 +1,61 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CharacterInteractor : MonoBehaviour
-{
-    private Interactable closestInteractable;
-    public float interactDistance = 3f;
-
-    void Update()
+namespace Gameplay.Interactions{
+    public class CharacterInteractor : MonoBehaviour
     {
-        UpdateInteractablesByDistance();
+        private Interactable closestInteractable;
+        public float interactDistance = 3f;
 
-        if (InputSystem.actions["Interact"].WasPressedThisFrame() && closestInteractable != null)
+        void Update()
         {
-            closestInteractable.Interact(this);
-        }
-    }
+            UpdateInteractablesByDistance();
 
-    //This function will find the closest interactable, and let it know that the player can interact with it.
-    private void UpdateInteractablesByDistance()
-    {
-        //If there are not interactables in the scene, there is no need to do anything.
-        if(Interactable.AllInteractables == null)
-            return;
-
-        float closestDistance = Mathf.Infinity;
-        Interactable newClosestInteractable = null;
-        foreach (var interactable in Interactable.AllInteractables)
-        {
-            //Ignore interactables that are not interactable at the moment.
-            if(!interactable.InteractionEnabled)
-                continue;
-            
-            //Check if the interactable is closer than the current closest one.
-            float checkDistance =  Vector3.Distance(transform.position, interactable.transform.position);
-            if(checkDistance < closestDistance && checkDistance < interactDistance)
+            if (InputSystem.actions["Interact"].WasPressedThisFrame() && closestInteractable != null)
             {
-                closestDistance = checkDistance;
-                newClosestInteractable = interactable;
+                closestInteractable.Interact(this);
             }
         }
 
-        //Update the closest interactable.
-        SetClosestInteractable(newClosestInteractable);
-    }
+        //This function will find the closest interactable, and let it know that the player can interact with it.
+        private void UpdateInteractablesByDistance()
+        {
+            //If there are not interactables in the scene, there is no need to do anything.
+            if(Interactable.AllInteractables == null)
+                return;
 
-    private void SetClosestInteractable(Interactable _interactable)
-    {
-        //If its the same, there is no need to trigger anything.
-        if(_interactable == closestInteractable)
-            return;
+            float closestDistance = Mathf.Infinity;
+            Interactable newClosestInteractable = null;
+            foreach (var interactable in Interactable.AllInteractables)
+            {
+                //Ignore interactables that are not interactable at the moment.
+                if(!interactable.InteractionEnabled)
+                    continue;
+                
+                //Check if the interactable is closer than the current closest one.
+                float checkDistance =  Vector3.Distance(transform.position, interactable.transform.position);
+                if(checkDistance < closestDistance && checkDistance < interactDistance)
+                {
+                    closestDistance = checkDistance;
+                    newClosestInteractable = interactable;
+                }
+            }
 
-        closestInteractable?.SetInteractCandidate(false);
+            //Update the closest interactable.
+            SetClosestInteractable(newClosestInteractable);
+        }
 
-        _interactable?.SetInteractCandidate(true);
+        private void SetClosestInteractable(Interactable _interactable)
+        {
+            //If its the same, there is no need to trigger anything.
+            if(_interactable == closestInteractable)
+                return;
 
-        closestInteractable = _interactable;
+            closestInteractable?.SetInteractCandidate(false);
+
+            _interactable?.SetInteractCandidate(true);
+
+            closestInteractable = _interactable;
+        }
     }
 }

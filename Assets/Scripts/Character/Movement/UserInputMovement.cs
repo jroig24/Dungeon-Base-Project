@@ -19,7 +19,9 @@ namespace Gameplay.Character{
             _characterMovement.Move(inputMovementVector);
 
             Vector3 lookVector = new Vector3(inputMovementVector.x, 0, inputMovementVector.y);
-            _characterMovement.LookAt(lookVector + transform.position);
+            
+            if(lookVector.magnitude > 0.1f)
+                _characterMovement.LookAt(lookVector + transform.position);
 
             if (InputSystem.actions["Jump"].WasPressedThisFrame())
             {

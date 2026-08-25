@@ -14,8 +14,9 @@ namespace Gameplay.Character
         public float extraFallGravity = 1f;
         private bool isJumping;
         private bool jumpHeld;
-
-
+ 
+        public Vector3 LookDirection => _lookDirection;
+        private Vector3 _lookDirection;
 
         void Awake()
         {
@@ -37,15 +38,14 @@ namespace Gameplay.Character
 
         public void LookAt(Vector3 targetLookPosition)
         {
-            Vector3 direction = (targetLookPosition - transform.position).normalized;
+            Vector3 tmpLookDirection = (targetLookPosition - transform.position);
 
-            direction.y = 0;
+            //Don't store the new look direction if its too small. I could cause issues if the character is trying to look inside itself.
+            if(tmpLookDirection.magnitude < 0.1f)
+                return;
 
-            if (direction != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                _myRigidBody.MoveRotation(targetRotation);//This has to be moved out. Move to character visuals.
-            }
+            //We only store the look direction here. We don't need it for the movement. The visual controller and other scripts will use this vector as needed.
+            _lookDirection = tmpLookDirection.normalized;
         }
 
         public void TriggerJump()
@@ -86,8 +86,9 @@ namespace Gameplay.Character
         {
             //Slightly below the character's position. This is to avoid missing the ground when the character is just above it.
             Vector2 origin = transform.position + Vector3.up * 0.1f;
-            //Setting the Ground layer is important, to avoid detecting the player's own collider.
-            return Physics.Raycast(origin, Vector3.down, 0.2f, LayerMask.GetMask("Ground"));
+            
+            //Cast a ray downwards to check if the ground is close enough.
+            return Physics.Raycast(origin, Vector3.down, 0.2f, LayerMask.GetMask("Ground")); //Setting the Ground layer is important, to avoid detecting the player's own collider.
         }
     }
 }

@@ -1,22 +1,22 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class SimpleLightInteraction : MonoBehaviour
-{
-    Interactable _interactable;
-    Light _light;
-
-    void Awake()
+namespace Gameplay.Interactions{
+    public class SimpleLightInteraction : MonoBehaviour
     {
-        _light = GetComponent<Light>();
+        Interactable _interactable;
+        Light _light;
 
-        _interactable = GetComponent<Interactable>();
-        _interactable.OnInteract += ToggleLight;
-    }
+        void Awake()
+        {
+            _light = GetComponent<Light>();
 
-    private void ToggleLight(CharacterInteractor interactor)
-    {
-        _light.enabled = !_light.enabled;
+            _interactable = GetComponent<Interactable>();
+            _interactable.OnInteract += ToggleLight;
+        }
+
+        private void ToggleLight(CharacterInteractor interactor)
+        {
+            _light.enabled = !_light.enabled;
+        }
     }
 }

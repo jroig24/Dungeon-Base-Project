@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2806883838532431584}
   - component: {fileID: 6081903947196977678}
   - component: {fileID: 3181091091852873652}
+  - component: {fileID: 331917724391113687}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -139,6 +140,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd6b2dbf8bba5e8449c9eece286d736c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterInteractor
+  interactDistance: 0.75
+--- !u!114 &331917724391113687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898377477949474490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82019cc7e0b612d41abfec4c9e64b155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterViewController
+  _characterMeshPivot: {fileID: 4553660314626030449}
 --- !u!1001 &4087967273253248154
 PrefabInstance:
   m_ObjectHideFlags: 0
