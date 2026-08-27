@@ -901,10 +901,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPickup
       objectReference: {fileID: 0}
-    - target: {fileID: 3094276286337383721, guid: 1d2f650b527892f4b9241eec4c48fc35, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
