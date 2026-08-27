@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Gameplay.Interactions{
@@ -6,15 +7,28 @@ namespace Gameplay.Interactions{
     {
         private Interactable closestInteractable;
         public float interactDistance = 3f;
+        public UnityAction<Interactable> OnInteraction;
+
+        private bool _interactionEnabled = true;
 
         void Update()
         {
             UpdateInteractablesByDistance();
 
-            if (InputSystem.actions["Interact"].WasPressedThisFrame() && closestInteractable != null)
+            if (_interactionEnabled && InputSystem.actions["Interact"].WasPressedThisFrame())
             {
-                closestInteractable.Interact(this);
+                if(closestInteractable != null)
+                {
+                    closestInteractable.Interact(this);
+                }
+
+                OnInteraction?.Invoke(closestInteractable);
             }
+        }
+
+        public void SetInteractionEnabled(bool enabled)
+        {
+            _interactionEnabled = enabled;
         }
 
         //This function will find the closest interactable, and let it know that the player can interact with it.
@@ -23,6 +37,12 @@ namespace Gameplay.Interactions{
             //If there are not interactables in the scene, there is no need to do anything.
             if(Interactable.AllInteractables == null)
                 return;
+
+            if (!_interactionEnabled)
+            {
+                SetClosestInteractable(null);
+                return;
+            }
 
             float closestDistance = Mathf.Infinity;
             Interactable newClosestInteractable = null;

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6627345107816890604}
   - component: {fileID: 7247264725372734819}
   - component: {fileID: 5368487776454495020}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,6 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70179c0b4ceaa83488c6d7b7284c0459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChestInteraction
+  rewardPrefab: {fileID: 3094276286337383721, guid: 1d2f650b527892f4b9241eec4c48fc35, type: 3}
+  rewardCount: 4
 --- !u!114 &5368487776454495020
 MonoBehaviour:
   m_ObjectHideFlags: 0

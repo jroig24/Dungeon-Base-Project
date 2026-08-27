@@ -2,6 +2,6 @@ using UnityEngine;
 
 public interface IActivable
 {
-    void Activate();
+    void Activate(bool activate);
     
 }

@@ -21,7 +21,7 @@ public class LeverController : ActivatorBase
 
         _animator.SetBool("isActive", _isActivated); //visual stuff
 
-        ToActivate.Invoke(_isActivated); //logic.
+        ActivateObjects(_isActivated); //logic
     }
 
 }

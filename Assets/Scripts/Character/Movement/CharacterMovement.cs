@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Gameplay.Character
 {
@@ -16,7 +17,12 @@ namespace Gameplay.Character
         private bool jumpHeld;
  
         public Vector3 LookDirection => _lookDirection;
-        private Vector3 _lookDirection;
+        private Vector3 _lookDirection = Vector3.forward;
+
+        //true -> Jump started. | false -> Jump ended.
+        public UnityAction<bool> OnJumpStateChanged;
+
+        private bool _movementEnabled = true;
 
         void Awake()
         {
@@ -27,8 +33,18 @@ namespace Gameplay.Character
             }
         }
 
+        public void SetMovementEnabled(bool enabled)
+        {
+            _movementEnabled = enabled;
+        }
+
         public void Move(Vector2 velocityVector)
         {
+            if (!_movementEnabled)
+            {
+                velocityVector = Vector2.zero;
+            }
+
             //Calculate the desired move velocity based on the input vector and move speed
             Vector2 desiredMoveVelocity = velocityVector * moveSpeed;
 
@@ -38,6 +54,11 @@ namespace Gameplay.Character
 
         public void LookAt(Vector3 targetLookPosition)
         {
+            if (!_movementEnabled)
+            {
+                return;
+            }
+
             Vector3 tmpLookDirection = (targetLookPosition - transform.position);
 
             //Don't store the new look direction if its too small. I could cause issues if the character is trying to look inside itself.
@@ -54,6 +75,7 @@ namespace Gameplay.Character
             if(!IsGrounded())
                 return;
 
+            OnJumpStateChanged?.Invoke(true);
             isJumping = true;
             jumpHeld = true;
 
@@ -77,18 +99,31 @@ namespace Gameplay.Character
                     _myRigidBody.AddForce(Vector3.down * extraFallGravity);
                 }
 
-                if (IsGrounded() && _myRigidBody.linearVelocity.y <= 0f)
+                if (IsGrounded() && _myRigidBody.linearVelocity.y <= 0f){
                     isJumping = false;
+                    OnJumpStateChanged?.Invoke(false);
+                }
             }
         }
 
-        bool IsGrounded()
+        public bool IsGrounded()
         {
             //Slightly below the character's position. This is to avoid missing the ground when the character is just above it.
-            Vector2 origin = transform.position + Vector3.up * 0.1f;
+            Vector3 origin = transform.position + Vector3.up * 0.1f; 
             
             //Cast a ray downwards to check if the ground is close enough.
             return Physics.Raycast(origin, Vector3.down, 0.2f, LayerMask.GetMask("Ground")); //Setting the Ground layer is important, to avoid detecting the player's own collider.
+        }
+
+        //Getters
+        public float GetCurrentHorizontalVelocity()
+        {
+            var horizontalVelocity = new Vector3(_myRigidBody.linearVelocity.x, 0f, _myRigidBody.linearVelocity.z);
+            return horizontalVelocity.magnitude;
+        }
+        public float GetCurrentVerticalVelocity()
+        {
+            return _myRigidBody.linearVelocity.y;
         }
     }
 }

@@ -8,13 +8,12 @@ public class PressurePlateController : ActivatorBase
     
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Pressure plate triggered by {other.name}");
         if (other.TryGetComponent(out PressurePlateActivator activator))
         {
             if(_objectsOnPlate == 0)
             {
                 _isActivated = true;
-                ToActivate?.Invoke(true);
+                ActivateObjects(_isActivated);
             }
             _objectsOnPlate++;
         }
@@ -27,7 +26,7 @@ public class PressurePlateController : ActivatorBase
             if(_objectsOnPlate == 0)
             {
                 _isActivated = false;
-                ToActivate?.Invoke(false);
+                ActivateObjects(_isActivated);
             }
         }
     }

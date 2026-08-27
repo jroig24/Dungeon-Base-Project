@@ -6,6 +6,9 @@ namespace Gameplay.Interactions{
         private Interactable _interactable;
         private Animator _animator;
 
+        public GameObject rewardPrefab;
+        public int rewardCount = 1;
+
         void Awake()
         {
             _interactable = GetComponent<Interactable>();
@@ -19,6 +22,19 @@ namespace Gameplay.Interactions{
             _animator.SetTrigger("Open");
             
             _interactable.InteractionEnabled = false;
+        }
+
+        public void SpawnReward()
+        {
+            for (int i = 0; i < rewardCount; i++)
+            {
+                GameObject reward = Instantiate(rewardPrefab, transform.position + Vector3.up * 0.2f, Quaternion.identity);
+                LaunchableReward launchableReward = reward.GetComponent<LaunchableReward>();
+                if (launchableReward != null)
+                {
+                    launchableReward.LaunchReward();
+                }
+            }
         }
     }
 }
