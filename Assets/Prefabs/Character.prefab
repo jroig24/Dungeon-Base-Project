@@ -4912,6 +4912,9 @@ GameObject:
   - component: {fileID: 331917724391113687}
   - component: {fileID: 2583166939312751703}
   - component: {fileID: 8995220209891517729}
+  - component: {fileID: 5052216139663031456}
+  - component: {fileID: 5952397226309433072}
+  - component: {fileID: 5916693975504883213}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -5162,6 +5165,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3c9b30f5608d44c808ac84e8ab05d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PressurePlateActivator
+--- !u!114 &5052216139663031456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898377477949474490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434b2ad260895d24e96fa41bb2d75df9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Picker
+  PickupDistance: 0.5
+--- !u!114 &5952397226309433072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898377477949474490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02095044e52446d43ad9273db93cab9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Damageable
+  _currentHitpoints: 0
+  _maxHitpoints: 100
+  canTakeDamage: 1
+  inmortal: 0
+--- !u!114 &5916693975504883213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898377477949474490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 973d2d44bc54c1a479d641e1e507394f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeathBehaviour
 --- !u!1001 &4087967273253248154
 PrefabInstance:
   m_ObjectHideFlags: 0

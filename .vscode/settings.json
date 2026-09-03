@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Dungeon-Base-Project.slnx"
+    "dotnet.defaultSolution": "Modelatge Escenaris Projecte Base.slnx"
 }
