@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Gameplay.Character;
 using Gameplay.Interactions;
+using Gameplay.Systems;
 using UnityEngine;
 
 public class CharacterViewController : MonoBehaviour

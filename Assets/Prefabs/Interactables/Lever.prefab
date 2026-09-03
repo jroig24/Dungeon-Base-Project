@@ -346,8 +346,7 @@ MonoBehaviour:
   ToActivate:
     m_PersistentCalls:
       m_Calls: []
-  ObjectsToActivate:
-  - {fileID: 0}
+  ObjectsToActivate: []
 --- !u!1 &9219678846580704383
 GameObject:
   m_ObjectHideFlags: 0
